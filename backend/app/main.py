@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from app.api.employee import router as employee_router
 
 app = FastAPI(
     title="Unified HR + IT Access Platform",
@@ -6,6 +7,9 @@ app = FastAPI(
     description="Enterprise access orchestration platform"
 )
 
+app.include_router(
+    employee_router
+)
 
 @app.get("/")
 async def root():
