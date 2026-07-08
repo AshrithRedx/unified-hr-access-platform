@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual Environment
+venv/
+
+# Environment Variables
+.env
+
+# IDE
+.vscode/
+
+# Database
+*.db
+
+# Alembic
+alembic/versions/*.pyc
+
+# Testing
+.pytest_cache/
+
+# Logs
+*.log
