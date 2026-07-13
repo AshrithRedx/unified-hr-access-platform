@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import {
     Building2,
     Briefcase,
-    Mail,
     User,
     UserPlus,
 } from "lucide-react";
