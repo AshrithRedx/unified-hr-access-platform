@@ -53,3 +53,26 @@ class EmployeeRepository:
             self.db.query(Employee)
             .all()
         )
+    
+    def update(self, employee: Employee):
+
+        self.db.commit()
+        self.db.refresh(employee)
+
+        return employee
+    
+    def get_all(self):
+
+        return (
+            self.db.query(Employee)
+            .order_by(Employee.created_at.desc())
+            .all()
+        )
+    
+    def get_all(self) -> list[Employee]:
+
+        return (
+            self.db.query(Employee)
+            .order_by(Employee.created_at.desc())
+            .all()
+        )

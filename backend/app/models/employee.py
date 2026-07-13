@@ -3,7 +3,7 @@ import uuid
 from sqlalchemy import Enum, String
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
-
+from sqlalchemy.orm import relationship
 from app.core.enums import EmploymentStatus
 from app.database.base import Base
 from app.models.base_model import TimestampMixin, UUIDPrimaryKeyMixin
@@ -55,6 +55,18 @@ class Employee(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     role_template_id: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True),
         nullable=True
+    )
+
+    access_records = relationship(
+        "AccessRecord",
+        back_populates="employee",
+        cascade="all, delete-orphan",
+    )
+
+    audit_logs = relationship(
+        "AuditLog",
+        back_populates="employee",
+        cascade="all, delete-orphan",
     )
 
     def __repr__(self) -> str:
