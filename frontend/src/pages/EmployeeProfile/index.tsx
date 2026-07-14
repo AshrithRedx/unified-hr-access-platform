@@ -30,7 +30,7 @@ export default function EmployeeProfile() {
 
     const { id } = useParams();
 
-    const navigate = useNavigate();4
+    const navigate = useNavigate();
 
     async function handleOffboard() {
 
