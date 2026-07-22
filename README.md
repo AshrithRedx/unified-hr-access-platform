@@ -312,10 +312,7 @@ Audit Logged
 
 ---
 
-# 📷 Screenshots
 
-
----
 
 # 🔐 Security
 
