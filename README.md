@@ -314,20 +314,6 @@ Audit Logged
 
 # 📷 Screenshots
 
-Consider adding screenshots of:
-
-- Dashboard
-- Employee List
-- Employee Profile
-- GitHub Provisioning
-- Audit Timeline
-- Settings Page
-
----
-
-# 🎥 Demo
-
-A Loom walkthrough demonstrating the application is available as part of the internship submission.
 
 ---
 
