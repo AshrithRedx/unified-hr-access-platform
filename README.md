@@ -317,7 +317,41 @@ Audit Logged
 
 ---
 
+# 📷 Screenshots
 
+## Dashboard
+
+![Dashboard](images/1.png)
+
+---
+
+## Employee List
+
+![Employee List](images/2.png)
+
+---
+
+## Onboarding Employee
+
+![Employee Profile](images/3.png)
+
+---
+
+## GitHub Provisioning
+
+![GitHub Provisioning](images/5.png)
+
+---
+
+## Audit Timeline
+
+![Audit Log](images/4.png)
+
+---
+
+## Settings
+
+![Settings](assets/settings.png)
 
 # 🔐 Security
 
