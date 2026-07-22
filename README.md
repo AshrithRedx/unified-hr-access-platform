@@ -47,6 +47,11 @@ Every important action is recorded, including:
 
 ---
 
+## 🌐 Live Demo
+
+- Frontend: https://unified-hr-access-platform.vercel.app/
+- Backend API: https://dashboard.render.com/web/srv-d9ahjnucjfls739ei9t0
+
 # 🏗 Architecture
 
 The application follows a layered architecture with clear separation of concerns.
