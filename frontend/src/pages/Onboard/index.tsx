@@ -26,6 +26,7 @@ export default function Onboard() {
         first_name: "",
         last_name: "",
         email: "",
+        github_username: "",
         department: "",
         designation: "",
     });
@@ -138,7 +139,7 @@ export default function Onboard() {
 
                     </div>
 
-                    <div className="mt-5">
+                    <div className="mt-5 space-y-4">
 
                         <Input
                             placeholder="Email Address"
@@ -150,6 +151,21 @@ export default function Onboard() {
                                 )
                             }
                         />
+
+                        <Input
+                            placeholder="GitHub Username (Optional)"
+                            value={form.github_username}
+                            onChange={(e) =>
+                                updateField(
+                                    "github_username",
+                                    e.target.value,
+                                )
+                            }
+                        />
+
+                        <p className="text-xs text-slate-500">
+                            Required only for GitHub provisioning.
+                        </p>
 
                     </div>
 

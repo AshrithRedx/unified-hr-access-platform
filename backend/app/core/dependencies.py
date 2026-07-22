@@ -36,12 +36,7 @@ def get_access_record_repository(
 ):
     return AccessRecordRepository(db)
 
-def get_access_record_service(
-    repository: AccessRecordRepository = Depends(
-        get_access_record_repository
-    ),
-):
-    return AccessRecordService(repository)
+
 
 def get_audit_log_repository(
     db: Session = Depends(get_db),
@@ -61,6 +56,28 @@ def get_audit_service(
     ),
 ):
     return AuditService(repository)
+
+def get_access_record_service(
+    repository: AccessRecordRepository = Depends(
+        get_access_record_repository
+    ),
+    employee_service: EmployeeService = Depends(
+        get_employee_service
+    ),
+    provisioning_service: ProvisioningService = Depends(
+        get_provisioning_service
+    ),
+    audit_service: AuditService = Depends(
+        get_audit_service
+    ),
+):
+
+    return AccessRecordService(
+        repository,
+        employee_service,
+        provisioning_service,
+        audit_service,
+    )
 
 def get_onboarding_service(
     employee_service: EmployeeService = Depends(

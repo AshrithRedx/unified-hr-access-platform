@@ -36,6 +36,13 @@ class Employee(Base, UUIDPrimaryKeyMixin, TimestampMixin):
         index=True
     )
 
+    github_username: Mapped[str | None] = mapped_column(
+        String(100),
+        unique=True,
+        nullable=True
+    )
+    
+
     department: Mapped[str | None] = mapped_column(
         String(100),
         nullable=True

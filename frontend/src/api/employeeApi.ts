@@ -23,6 +23,32 @@ export async function getEmployeeAccess(id: string) {
 
 }
 
+export async function provisionEmployeeAccess(
+    id: string,
+    provider: string,
+) {
+
+    const response = await api.post(
+        `/employees/${id}/access/${provider.toLowerCase()}`
+    );
+
+    return response.data;
+
+}
+
+export async function revokeEmployeeAccess(
+    id: string,
+    provider: string,
+) {
+
+    const response = await api.delete(
+        `/employees/${id}/access/${provider.toLowerCase()}`
+    );
+
+    return response.data;
+
+}
+
 export async function getEmployeeAudit(id: string) {
 
     const response = await api.get(
@@ -47,6 +73,7 @@ export async function onboardEmployee(data: {
     first_name: string;
     last_name: string;
     email: string;
+    github_username?: string;
     department: string;
     designation: string;
 }) {

@@ -30,7 +30,6 @@ class EmployeeService:
             employee_data
         )
     
-    from uuid import UUID
 
 
     def get_employee(

@@ -1,14 +1,21 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 import type { AccessRecord } from "@/types/accessRecord";
 
 type Props = {
     records: AccessRecord[];
+    
+    onProvision: (provider: string) => void;
+
+    onRevoke: (provider: string) => void;
 };
 
 export default function AccessRecordCard({
     records,
+    onProvision,
+    onRevoke,
 }: Props) {
 
     return (
@@ -46,19 +53,40 @@ export default function AccessRecordCard({
 
                         </div>
 
-                        <Badge
-                            className={
-                                record.status === "SUCCESS"
+                        <div className="flex items-center gap-3">
 
-                                    ? "bg-green-600"
+                            <Badge
+                                className={
+                                    record.status === "SUCCESS"
+                                        ? "bg-green-600"
+                                        : "bg-red-600"
+                                }
+                            >
+                                {record.status}
+                            </Badge>
 
-                                    : "bg-red-600"
-                            }
-                        >
+                            {record.status === "REVOKED" ? (
+                                <Button
+                                    size="sm"
+                                    onClick={() =>
+                                        onProvision(record.provider)
+                                    }
+                                >
+                                    Provision
+                                </Button>
+                            ) : (
+                                <Button
+                                    size="sm"
+                                    variant="destructive"
+                                    onClick={() =>
+                                        onRevoke(record.provider)
+                                    }
+                                >
+                                    Revoke
+                                </Button>
+                            )}
 
-                            {record.status}
-
-                        </Badge>
+                        </div>
 
                     </div>
 

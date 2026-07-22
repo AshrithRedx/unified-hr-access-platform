@@ -11,6 +11,21 @@ class DashboardService:
 
     def get_dashboard_summary(self):
 
+        alerts = []
+
+        for employee, access_record in self.repository.security_alerts():
+
+            alerts.append(
+                {
+                    "employee_id": employee.id,
+                    "employee_name": (
+                        f"{employee.first_name} {employee.last_name}"
+                    ),
+                    "provider": access_record.provider,
+                    "status": access_record.status,
+                }
+            )
+
         return {
             "total_employees":
                 self.repository.total_employees(),
@@ -26,4 +41,7 @@ class DashboardService:
 
             "recent_activity":
                 self.repository.recent_activity(),
+
+            "security_alerts":
+                alerts,
         }

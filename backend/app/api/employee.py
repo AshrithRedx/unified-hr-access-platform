@@ -147,6 +147,40 @@ def get_employee_access(
         employee_id
     )
 
+@router.post(
+    "/{employee_id}/access/{provider}",
+    response_model=AccessRecordResponse,
+)
+def provision_employee_access(
+    employee_id: UUID,
+    provider: str,
+    service: AccessRecordService = Depends(
+        get_access_record_service,
+    ),
+):
+
+    return service.provision_access(
+        employee_id,
+        provider,
+    )
+
+@router.delete(
+    "/{employee_id}/access/{provider}",
+    response_model=AccessRecordResponse,
+)
+def revoke_employee_access(
+    employee_id: UUID,
+    provider: str,
+    service: AccessRecordService = Depends(
+        get_access_record_service,
+    ),
+):
+
+    return service.revoke_access(
+        employee_id,
+        provider,
+    )
+
 @router.get(
     "/{employee_id}/audit",
     response_model=list[AuditLogResponse],

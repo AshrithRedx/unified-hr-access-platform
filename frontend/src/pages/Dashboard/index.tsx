@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import SecurityAlerts from "@/components/dashboard/SecurityAlerts";
 import {
     Users,
     UserCheck,
@@ -120,13 +120,17 @@ export default function Dashboard() {
 
             {/* Bottom Cards */}
 
-            <div className="grid gap-6 xl:grid-cols-2">
+            <div className="grid gap-6 xl:grid-cols-3">
 
                 <RecentActivity
-    activities={summary.recent_activity}
-/>
+                    activities={summary.recent_activity}
+                />
 
                 <PlatformHealth />
+
+                <SecurityAlerts
+                    alerts={summary.security_alerts}
+                />
 
             </div>
 

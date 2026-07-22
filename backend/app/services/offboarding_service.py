@@ -35,13 +35,15 @@ class OffboardingService:
 
         for record in access_records:
 
-            adapter = self.adapter_manager.get_adapter(
-                record.provider.value
+            self.access_record_service.revoke_access(
+                employee.id,
+                record.provider.value,
             )
 
-            adapter.revoke_user(employee)
-
-            self.access_record_service.revoke_access(record)
+            self.access_record_service.revoke_access(
+                employee.id,
+                record.provider.value,
+            )
 
             self.audit_service.log_event(
                 employee_id=employee.id,

@@ -15,3 +15,30 @@ class ProvisioningService:
             results.append(result)
 
         return results
+
+    def provision_provider(
+        self,
+        employee,
+        provider,
+    ):
+        adapter = self.adapter_manager.get_adapter(provider)
+
+        if adapter is None:
+            raise ValueError("Invalid provider")
+
+        return adapter.provision_user(employee)
+    
+    def revoke_provider(
+        self,
+        employee,
+        provider: str,
+    ):
+
+        adapter = self.adapter_manager.get_adapter(provider)
+
+        if adapter is None:
+            raise ValueError(
+                f"Unsupported provider: {provider}"
+            )
+
+        return adapter.revoke_user(employee)

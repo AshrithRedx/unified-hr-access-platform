@@ -10,9 +10,21 @@ export interface DashboardActivity {
 
 }
 
+export interface SecurityAlert {
+
+    employee_id: string;
+
+    employee_name: string;
+
+    provider: string;
+
+    status: string;
+
+}
+
 export interface DashboardSummary {
 
-    total_employees: number;
+     total_employees: number;
 
     active_employees: number;
 
@@ -21,5 +33,7 @@ export interface DashboardSummary {
     provisioned_accounts: number;
 
     recent_activity: DashboardActivity[];
+
+    security_alerts: SecurityAlert[];
 
 }

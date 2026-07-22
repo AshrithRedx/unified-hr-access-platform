@@ -8,6 +8,8 @@ export interface Employee {
 
     email: string;
 
+    github_username?: string | null;
+
     department: string;
 
     designation: string;

@@ -10,6 +10,9 @@ class EmployeeBase(BaseModel):
     first_name: str
     last_name: str
     email: EmailStr
+
+    github_username: str | None = None
+
     department: str | None = None
     designation: str | None = None
 
@@ -23,6 +26,7 @@ class EmployeeUpdate(BaseModel):
     first_name: str | None = None
     last_name: str | None = None
     email: EmailStr | None = None
+    github_username: str | None = None
     department: str | None = None
     designation: str | None = None
     role_template_id: UUID | None = None

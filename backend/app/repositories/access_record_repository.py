@@ -75,3 +75,18 @@ class AccessRecordRepository:
         self.db.refresh(record)
 
         return record
+    
+    def activate_access(
+        self,
+        record: AccessRecord,
+        external_user_id: str,
+    ):
+
+        record.status = ProvisioningStatus.SUCCESS
+        record.external_user_id = external_user_id
+        record.revoked_at = None
+
+        self.db.commit()
+        self.db.refresh(record)
+
+        return record

@@ -69,10 +69,3 @@ class EmployeeRepository:
             .all()
         )
     
-    def get_all(self) -> list[Employee]:
-
-        return (
-            self.db.query(Employee)
-            .order_by(Employee.created_at.desc())
-            .all()
-        )

@@ -11,6 +11,8 @@ import {
     getEmployeeAccess,
     getEmployeeAudit,
     offboardEmployee,
+    provisionEmployeeAccess,
+    revokeEmployeeAccess,
 } from "@/api/employeeApi";
 
 import type { Employee } from "@/types/employee";
@@ -44,7 +46,7 @@ export default function EmployeeProfile() {
             "Employee successfully offboarded."
         );
 
-        window.location.reload();
+        await loadEmployee();
 
     } catch {
 
@@ -56,30 +58,83 @@ export default function EmployeeProfile() {
 
 }
 
+    async function handleProvision(provider: string) {
+
+    if (!id) return;
+
+    try {
+
+        const response = await provisionEmployeeAccess(
+            id,
+            provider,
+        );
+
+        toast.success(response.message);
+
+        await loadEmployee();
+
+    } catch (error: any) {
+
+        toast.error(
+            error.response?.data?.detail ??
+            `Failed to provision ${provider}.`
+        );
+
+    }
+
+}
+
+    async function handleRevoke(provider: string) {
+
+    if (!id) return;
+
+    try {
+
+        const response = await revokeEmployeeAccess(
+            id,
+            provider,
+        );
+
+        toast.success(response.message);
+
+        await loadEmployee();
+
+        } catch (error: any) {
+
+        toast.error(
+            error.response?.data?.detail ??
+            `Failed to revoke ${provider}.`
+        );
+
+    }
+
+    }
+
     const [employee, setEmployee] = useState<Employee | null>(null);
 
     const [accessRecords, setAccessRecords] = useState<AccessRecord[]>([]);
     
     const [auditLogs, setAuditLogs] = useState<AuditLog[]>([]);
 
+    async function loadEmployee() {
+
+        if (!id) return;
+
+        const employeeData = await getEmployee(id);
+
+        const accessData = await getEmployeeAccess(id);
+
+        const auditData = await getEmployeeAudit(id);
+
+        setEmployee(employeeData);
+
+        setAccessRecords(accessData);
+
+        setAuditLogs(auditData);
+
+}
+
     useEffect(() => {
-
-        async function loadEmployee() {
-
-            if (!id) return;
-
-            const employeeData = await getEmployee(id);
-
-            const accessData = await getEmployeeAccess(id);
-
-            const auditData = await getEmployeeAudit(id);
-
-            setEmployee(employeeData);
-
-            setAccessRecords(accessData);
-
-            setAuditLogs(auditData);
-        }
 
         loadEmployee();
 
@@ -87,7 +142,13 @@ export default function EmployeeProfile() {
 
     if (!employee) {
 
-        return <p>Loading employee...</p>;
+        return (
+            <div className="flex h-64 items-center justify-center">
+                <p className="text-slate-400">
+                    Loading employee...
+                </p>
+            </div>
+);
 
     }
 
@@ -118,37 +179,60 @@ export default function EmployeeProfile() {
 
                 </Avatar>
 
-                <div>
+<div className="space-y-3">
 
-                    <h1 className="text-4xl font-bold">
+    <div>
+        <h1 className="text-4xl font-bold">
+            {employee.first_name} {employee.last_name}
+        </h1>
 
-                        {employee.first_name} {employee.last_name}
+        <p className="text-slate-400">
+            {employee.designation}
+        </p>
+    </div>
 
-                    </h1>
+        <div className="space-y-1 text-sm text-slate-400">
 
-                    <p className="mt-2 text-slate-400">
+            <p>
+                <span className="font-medium text-slate-300">
+                    Email:
+                </span>{" "}
+                {employee.email}
+            </p>
 
-                        {employee.designation}
+            <p>
+                <span className="font-medium text-slate-300">
+                    GitHub:
+                </span>{" "}
+                {employee.github_username || "Not configured"}
+            </p>
 
-                    </p>
+            <p>
+                <span className="font-medium text-slate-300">
+                    Department:
+                </span>{" "}
+                {employee.department}
+            </p>
 
-                    <p className="text-slate-400">
+        </div>
 
-                        {employee.department}
+        <Badge
+            className={
+                employee.employment_status === "ACTIVE"
+                    ? "bg-green-600"
+                    : "bg-red-600"
+            }
+        >
+            {employee.employment_status}
+        </Badge>
 
-                    </p>
-
-                    <Badge className="mt-4 bg-green-600">
-
-                        {employee.employment_status}
-
-                    </Badge>
-
-                </div>
+    </div>
 
             </div>
                     <AccessRecordCard
             records={accessRecords}
+                onProvision={handleProvision}
+                onRevoke={handleRevoke}
         />
 
         <AuditTimeline

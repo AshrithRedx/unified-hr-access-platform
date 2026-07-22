@@ -6,6 +6,7 @@ from app.models.access_record import AccessRecord
 from app.models.audit_log import AuditLog
 
 from app.core.enums import EmploymentStatus
+from app.core.enums import ProvisioningStatus
 
 
 class DashboardRepository:
@@ -57,5 +58,20 @@ class DashboardRepository:
                 AuditLog.occurred_at.desc()
             )
             .limit(limit)
+            .all()
+        )
+    
+    def security_alerts(self):
+
+        return (
+            self.db.query(Employee, AccessRecord)
+            .join(
+                AccessRecord,
+                Employee.id == AccessRecord.employee_id,
+            )
+            .filter(
+                Employee.employment_status == EmploymentStatus.OFFBOARDED,
+                AccessRecord.status != ProvisioningStatus.REVOKED,
+            )
             .all()
         )
