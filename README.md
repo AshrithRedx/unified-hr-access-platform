@@ -337,7 +337,7 @@ Audit Logged
 
 ---
 
-## GitHub Provisioning
+## Settings
 
 ![GitHub Provisioning](images/5.png)
 
@@ -349,9 +349,7 @@ Audit Logged
 
 ---
 
-## Settings
 
-![Settings](assets/settings.png)
 
 # 🔐 Security
 
